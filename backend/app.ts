@@ -37,13 +37,13 @@ app.use('/logout', logout);
 app.use(swagger);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req: any, res: any, next: any) {
   throw new createError.NotFound();
 });
 app.use(cookieParser());
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err: { message: any; status: any; }, req: { app: { get: (arg0: string) => string; }; }, res: { locals: { message: any; error: any; }; status: (arg0: any) => void; render: (arg0: string) => void; }, next: any) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -53,7 +53,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT);
 
 module.exports = app;

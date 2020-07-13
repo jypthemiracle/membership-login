@@ -1,9 +1,13 @@
 import express = require('express');
-import uuid4 = require('uuid4');
+const uuid4 = require('uuid');
 const router = express.Router();
+const bodyParser = require('body-parser');
 const { isDuplicateId, isCorrectPassword, createSession } = require("../database/database.ts")
 
-router.post('/', (request: express.Request, response: express.Response) => {
+router.use(bodyParser.json())
+const urlencodedParser = bodyParser.urlencoded({extended: true});
+
+router.post('/', urlencodedParser, (request: express.Request, response: express.Response) => {
     if (isDuplicateId(request.body.id)) {
         if (isCorrectPassword(request.body.id, request.body.password)) {
             const sessionId: string = uuid4();
