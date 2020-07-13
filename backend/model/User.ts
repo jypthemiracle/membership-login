@@ -22,6 +22,14 @@ export class User {
         this.interest = interest;
     }
 
+    public getId(): string {
+        return this.id;
+    }
+
+    public getPassword(): string {
+        return this.password;
+    }
+
     private static findGenderByName(genderName: string) {
         if (Gender.MALE == genderName) {
             return Gender.MALE;
