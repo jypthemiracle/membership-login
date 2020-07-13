@@ -1,5 +1,5 @@
 import express = require('express');
-const {uuid} = require('uuidv4');
+const {"v4": uuidv4} = require('uuid');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const { isDuplicateId, isCorrectPassword, createSession } = require("../database/database.ts")
@@ -10,7 +10,7 @@ const urlencodedParser = bodyParser.urlencoded({extended: true});
 router.post('/', urlencodedParser, (request: express.Request, response: express.Response) => {
     if (isDuplicateId(request.body.id)) {
         if (isCorrectPassword(request.body.id, request.body.password)) {
-            const sessionId: string = uuid();
+            const sessionId: string = uuidv4();
             createSession(sessionId, request.body.id);
             response.cookie('sessionId', sessionId, {
                 maxAge: 60 * 30 * 1000
