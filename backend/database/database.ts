@@ -30,19 +30,22 @@ const DB = [
 const sessionDB = {};
 
 const insertUser = (id: string, info: any) => {
+    // @ts-ignore
     DB[id] = info;
+    // @ts-ignore
     return DB[id];
 }
 
 function isDuplicateId(id: string): boolean {
     for (let index: number = 0; index < DB.length; index++) {
-        if (DB[index].id === id) {
+        if (DB[index].getId() === id) {
             return true;
         }
     }
     return false;
 }
 
+// @ts-ignore
 function findUserByUserId(userId: string): User {
     for (let index: number = 0; index < DB.length; index++) {
         if (DB[index].id === userId) {
@@ -57,21 +60,26 @@ function isCorrectPassword(userId: string, password: string): boolean {
 
 }
 
-function createSession(sessionId, userId): void {
+function createSession(sessionId: string | number, userId: any): void {
+    // @ts-ignore
     sessionDB[sessionId] = userId;
 }
 
+// @ts-ignore
 function getUserBySession(sessionId: string): User {
+    // @ts-ignore
     const userId: string = sessionDB[sessionId];
     if (userId) {
         return findUserByUserId(userId);
     }
-    return;
 }
 
 function deleteSession(sessionId: string): void {
-    const userId: string = sessionDB[sessionId];
+    let userId: string;
+    // @ts-ignore
+    userId = sessionDB[sessionId];
     if (userId) {
+        // @ts-ignore
         delete sessionDB[sessionId];
         return;
     }
