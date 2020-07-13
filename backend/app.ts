@@ -1,3 +1,5 @@
+import swagger from './routes/swagger';
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -31,6 +33,7 @@ app.use('/signup', signup);
 app.use('/signin', signin);
 app.use('/main', main);
 app.use('/logout', logout);
+app.use(swagger);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
