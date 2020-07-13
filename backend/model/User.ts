@@ -4,7 +4,7 @@ export class User {
 
     private name: string;
     private birth: Date;
-    private id: string;
+    id: string;
     private password: string;
     private gender: Gender;
     private email: string;

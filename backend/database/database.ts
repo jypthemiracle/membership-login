@@ -22,14 +22,23 @@ const soo: User = new User(
     ["축구", "야구"]
 );
 
-const DB = {
+const DB = [
     Jin,
     soo,
-};
+];
 
 const insertUser = (id: string, info: any) => {
     DB[id] = info;
     return DB[id];
 }
 
-module.exports = { insertUser };
+function isDuplicateId(id: string): boolean {
+    for (let index: number = 0; index < DB.length; index++) {
+        if (DB[index].id === id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+module.exports = { insertUser, isDuplicateId };
