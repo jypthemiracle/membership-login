@@ -43,19 +43,30 @@ function isDuplicateId(id: string): boolean {
     return false;
 }
 
-function isCorrectPassword(id: string, password: string): boolean {
+function findUserByUserId(userId: string): User {
     for (let index: number = 0; index < DB.length; index++) {
-        if (DB[index].id === id) {
-            if (DB[index].getPassword() === password) {
-                return true;
-            }
+        if (DB[index].id === userId) {
+            return DB[index];
         }
     }
-    return false;
+}
+
+function isCorrectPassword(userId: string, password: string): boolean {
+    const user: User = findUserByUserId(userId);
+    return user.getPassword() === password;
+
 }
 
 function createSession(sessionId, userId): void {
     sessionDB[sessionId] = userId;
 }
 
-module.exports = { insertUser, isDuplicateId, isCorrectPassword, createSession };
+function getUserBySession(sessionId: string): User {
+    const userId: string = sessionDB[sessionId];
+    if (userId) {
+        return findUserByUserId(userId);
+    }
+    return;
+}
+
+module.exports = { insertUser, isDuplicateId, isCorrectPassword, createSession, getUserBySession };
