@@ -69,4 +69,13 @@ function getUserBySession(sessionId: string): User {
     return;
 }
 
-module.exports = { insertUser, isDuplicateId, isCorrectPassword, createSession, getUserBySession };
+function deleteSession(sessionId: string): void {
+    const userId: string = sessionDB[sessionId];
+    if (userId) {
+        delete sessionDB[sessionId];
+        return;
+    }
+    return;
+}
+
+module.exports = { insertUser, isDuplicateId, isCorrectPassword, createSession, getUserBySession, deleteSession };

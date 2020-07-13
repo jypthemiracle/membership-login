@@ -13,6 +13,7 @@ const app = express();
 //api
 const signup = require('./routes/signup');
 const signin = require('./routes/signin');
+const logout = require('./routes/logout');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +30,7 @@ app.use('/users', usersRouter);
 app.use('/signup', signup);
 app.use('/signin', signin);
 app.use('/main', main);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
