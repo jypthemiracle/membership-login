@@ -1,5 +1,6 @@
-///<reference path="Gender.ts"/>
-class User {
+import {Gender} from "./Gender";
+
+export class User {
 
     private name: string;
     private birth: Date;
