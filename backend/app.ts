@@ -32,8 +32,9 @@ app.use('/main', main);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  throw new createError.NotFound();
 });
+app.use(cookieParser());
 
 // error handler
 app.use(function(err, req, res, next) {
