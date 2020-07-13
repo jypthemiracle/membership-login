@@ -1,11 +1,17 @@
 import express = require('express');
+import uuid4 = require('uuid4');
 const router = express.Router();
-const { isDuplicateId, isCorrectPassword } = require("../database/database.ts")
+const { isDuplicateId, isCorrectPassword, createSession } = require("../database/database.ts")
 
 router.post('/', (request: express.Request, response: express.Response) => {
     if (isDuplicateId(request.body.id)) {
         if (isCorrectPassword(request.body.id, request.body.password)) {
-            sendResponse(response, 200, "OK", "로그인 완료");
+            const sessionId: string = uuid4();
+            createSession(sessionId, request.body.id);
+            response.cookie('sessionId', sessionId, {
+                maxAge: 60 * 30 * 1000
+            })
+            sendResponse(response, 200, "OK", request.body.id);
             return;
         }
         sendResponse(response, 400, "FAIL", "비밀번호가 틀립니다.");

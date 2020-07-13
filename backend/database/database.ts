@@ -27,6 +27,8 @@ const DB = [
     soo,
 ];
 
+const sessionDB = {};
+
 const insertUser = (id: string, info: any) => {
     DB[id] = info;
     return DB[id];
@@ -52,4 +54,8 @@ function isCorrectPassword(id: string, password: string): boolean {
     return false;
 }
 
-module.exports = { insertUser, isDuplicateId, isCorrectPassword };
+function createSession(sessionId, userId): void {
+    sessionDB[sessionId] = userId;
+}
+
+module.exports = { insertUser, isDuplicateId, isCorrectPassword, createSession };
