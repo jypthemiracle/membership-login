@@ -41,4 +41,15 @@ function isDuplicateId(id: string): boolean {
     return false;
 }
 
-module.exports = { insertUser, isDuplicateId };
+function isCorrectPassword(id: string, password: string): boolean {
+    for (let index: number = 0; index < DB.length; index++) {
+        if (DB[index].id === id) {
+            if (DB[index].getPassword() === password) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+module.exports = { insertUser, isDuplicateId, isCorrectPassword };
